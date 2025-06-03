@@ -9,6 +9,8 @@ import Sidebar from './Componenet/Sidebar';
 import ProductState from './Context/ProductState';
 import Login from './Componenet/Login';
 import Reports from './Componenet/Reports';
+import AccommodationList from './Componenet/AccommodationList';
+import Rooms from './Componenet/Rooms';
 
 function App() {
   const [token, setToken] = useState(sessionStorage.getItem("token") || null);
@@ -31,6 +33,10 @@ function App() {
                               { <Routes>
                                 <Route exact path="/" element={<Home />} />
                                 <Route exact path="/report" element={<Reports />} />
+                                <Route exact path="/accommodation" element={<AccommodationList />} />
+                                <Route exact path="/rooms" element={<Rooms />} />
+
+
                               </Routes>} 
                         {/* <Footer/>                     */}
                     </div>
