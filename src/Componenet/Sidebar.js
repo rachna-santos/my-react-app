@@ -7,7 +7,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 export default function Sidebar() {
 
     const[isOpen, setIsOpen] = useState(false);
-
+    const [isReportingOpen, setIsReportingOpen] = useState(false);
     //    usetogglebutton
     useEffect(() => {
         const toggleHandler = function () {
@@ -24,7 +24,6 @@ export default function Sidebar() {
             $("#sidebarToggle, #sidebarToggleTop").off('click', toggleHandler);
         };
     }, []);
-
     return (
         <>
             {/* <!-- Sidebar --> */}
@@ -65,15 +64,17 @@ export default function Sidebar() {
                 </li>
 
                  <li className="nav-item">
-                 <a className="nav-link collapsed" href="#" onClick={() => setIsOpen(!isOpen)}>
+                 <a className="nav-link collapsed" href="#" onClick={() => setIsReportingOpen(!isReportingOpen)}>
                         <i className="fas fa-fw fa-cog"></i>
                         <span>LogManagement</span>
                     </a>
 
-                    <div className={`collapse ${isOpen ? 'show' : ''}`} id="collapseTwo">
+                    <div className={`collapse ${isReportingOpen ? 'show' : ''}`} id="collapseTwo">
                             <div className="bg-white py-2 collapse-inner rounded">
                                 <Link className="collapse-item" to="/accommodation">Log_Accommodation</Link>
                                 <Link className="collapse-item" to="/rooms">Log_Room</Link>
+                                <Link className="collapse-item" to="/rateplan">Log_Ratepaln</Link>
+
                             </div>
                         </div>
                     </li> 

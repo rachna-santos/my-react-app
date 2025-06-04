@@ -13,6 +13,10 @@ export default function ProductState(props) {
   const [getaccommodationsearch,setgetaccommodationsearch]=useState([])
   const [room,setroom]=useState([])
   const [roomlist,setroomlist]=useState([])
+  const [rateplan,setrateplan]=useState([])
+  const [rateplanlist,setrateplanlist]=useState([])
+
+
 
   const GetAccommodation = async ()=>{
      const token = sessionStorage.getItem('token');
@@ -206,8 +210,47 @@ export default function ProductState(props) {
    
  };
 
+ const Rateplan = async (AccommodationId,RoomId,Rateplanid)=>{
+    const token = sessionStorage.getItem('token');
+   try {
+       const response = await fetch(`https://localhost:44380/api/Home/Rateplan?P_AccommodationId=${AccommodationId}&P_RoomId=${RoomId}&P_RatePlanId=${Rateplanid}`,{
+           method: 'GET',
+           headers: {
+           "Content-Type": "application/json",
+            "Authorization":`Bearer ${token}`
+           }
+       });
+       const json = await response.json();
+       console.log("rateplanlist data",json);
+       setrateplan(json);  
+   } catch (error) {
+       console.error('Error fetching data:', error.message || error);
+   }
+   
+ };
+
+ const RateplanList = async (AccommodationId,P_LogStartDate,P_LogEndDate,Roomid,Ratepald)=>{
+    const token = sessionStorage.getItem('token');
+   try {
+       const response = await fetch(`https://localhost:44380/api/Home/Rateplanlist?P_AccommodationId=${AccommodationId}&P_RoomId=${Roomid}&P_RatePlanId=${Ratepald}&P_LogStartDate=${P_LogStartDate}&P_LogEndDate=${P_LogEndDate}`,{
+           method: 'GET',
+           headers: {
+           "Content-Type": "application/json",
+            "Authorization":`Bearer ${token}`
+           }
+       });
+       const json = await response.json();
+       console.log("rateplan data",json);
+       setrateplanlist(json);  
+
+   } catch (error) {
+       console.error('Error fetching data:', error.message || error);
+   }
+   
+ };
+  
     return (
-      <ProductContext.Provider value={{AccommodationList,Reportingdata,GetBarChart,GetKeyIndicator,GetCalander,GetAccommodation,SelectRooms,RoomList,accommodation,Calander,key,bar,reporting,accommodationsearch,getaccommodationsearch,room,roomlist,GetAccommodationList,setreporting}}>
+      <ProductContext.Provider value={{AccommodationList,Reportingdata,GetBarChart,GetKeyIndicator,GetCalander,GetAccommodation,SelectRooms,RoomList,Rateplan,RateplanList,accommodation,Calander,key,bar,reporting,accommodationsearch,getaccommodationsearch,room,roomlist,rateplan,rateplanlist,GetAccommodationList,setreporting}}>
         {props.children}
         </ProductContext.Provider>
     )

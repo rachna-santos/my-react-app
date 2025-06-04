@@ -61,26 +61,26 @@ export default function AccommodationList() {
     };
     const Formsubmit = async (e) => {
         e.preventDefault();
-    
+
         // Case: No accommodation selected → always invalid
         if (!selectedAccommodationId) {
             alert("Please select an accommodation.");
             return;
         }
-    
+
         // Case: Accommodation is selected but one date is missing → invalid
         if ((P_StartDate && !P_EndDate) || (!P_StartDate && P_EndDate)) {
             alert("Please select both Start and End dates.");
             return;
         }
-    
+
         // ✅ Valid in both cases: only accommodation OR all three fields
         await GetAccommodationList(selectedAccommodationId, P_StartDate, P_EndDate);
-    } 
-    useEffect(()=>{
+    }
+    useEffect(() => {
 
         GetAccommodationList();
-    },[])
+    }, [])
 
     return (
         <>
@@ -104,6 +104,38 @@ export default function AccommodationList() {
                                             />
 
                                             {showDropdown && accommodationsearch.length > 0 && (
+                                                <ul
+                                                    className="list-group position-absolute"
+                                                    style={{
+                                                        zIndex: 999,
+                                                        maxHeight: '200px',
+                                                        overflowY: 'auto',
+                                                        width: '468px', // fix width here
+                                                        boxSizing: 'content-box',
+                                                        margin: 0,
+                                                        padding: 0,
+                                                    }}
+                                                >
+                                                    {accommodationsearch.map((item) => (
+                                                        <li
+                                                            key={item.accommodationId}
+                                                            className="list-group-item list-group-item-action"
+                                                            onClick={() => handleSelect(item)}
+                                                            style={{
+                                                                cursor: 'pointer',
+                                                                width: '100%', // ensure full width
+                                                                padding: '8px 12px', // adjust padding as needed
+                                                                boxSizing: 'border-box',
+                                                            }}
+                                                        >
+                                                            {item.accommodationIdName}
+                                                        </li>
+                                                    ))}
+                                                </ul>
+                                            )}
+
+
+                                            {/* {showDropdown && accommodationsearch.length > 0 && (
                                                 <ul className="list-group position-absolute w-100" style={{ zIndex: 999 }}>
                                                     {accommodationsearch.map((item) => (
                                                         <li
@@ -116,7 +148,8 @@ export default function AccommodationList() {
                                                         </li>
                                                     ))}
                                                 </ul>
-                                            )}
+                                            )} */}
+
                                         </div>
 
                                         <div className="col-6 col-md-3">
@@ -167,32 +200,32 @@ export default function AccommodationList() {
 
                                     <tbody>
 
-                                    {getaccommodationsearch && getaccommodationsearch.length > 0 ? (
-                                        getaccommodationsearch.map((item,index) => (
-                                                        <tr key={index}>
-                                                            <td>{item.accommodationId}</td>
-                                                            <td style={{ whiteSpace: "nowrap" }}>{item.logDate}</td>
-                                                            <td>{item.o_UserName}</td>
-                                                            <td>{item.n_UserName}</td>
-                                                            <td>{item.o_accommodationName}</td>
-                                                            <td>{item.n_accommodationName}</td>
-                                                            <td>{item.o_CityName}</td>
-                                                            <td>{item.o_CountryName}</td>
-                                                            <td>{item.o_CurrencyName}</td>
-                                                            <td>{item.n_CurrencyName}</td>
-                                                            <td>{item.o_TotalRooms}</td>
-                                                            <td>{item.n_TotalRooms}</td>
-                                                        </tr>
-                                                    ))
+                                        {getaccommodationsearch && getaccommodationsearch.length > 0 ? (
+                                            getaccommodationsearch.map((item, index) => (
+                                                <tr key={index}>
+                                                    <td>{item.accommodationId}</td>
+                                                    <td style={{ whiteSpace: "nowrap" }}>{item.logDate}</td>
+                                                    <td>{item.o_UserName}</td>
+                                                    <td>{item.n_UserName}</td>
+                                                    <td>{item.o_accommodationName}</td>
+                                                    <td>{item.n_accommodationName}</td>
+                                                    <td>{item.o_CityName}</td>
+                                                    <td>{item.o_CountryName}</td>
+                                                    <td>{item.o_CurrencyName}</td>
+                                                    <td>{item.n_CurrencyName}</td>
+                                                    <td>{item.o_TotalRooms}</td>
+                                                    <td>{item.n_TotalRooms}</td>
+                                                </tr>
+                                            ))
 
-                                                ) : (
+                                        ) : (
 
-                                                    <tr>
-                                                        <td colSpan="12" style={{ textAlign: "left" }}>
-                                                            No data available
-                                                        </td>
-                                                    </tr>
-                                                )}
+                                            <tr>
+                                                <td colSpan="12" style={{ textAlign: "left" }}>
+                                                    No data available
+                                                </td>
+                                            </tr>
+                                        )}
 
                                     </tbody>
                                 </table>

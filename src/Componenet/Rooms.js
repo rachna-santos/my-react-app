@@ -64,7 +64,7 @@ export default function Rooms() {
         // Case: No accommodation selected → always invalid
         if (!selectedAccommodationId || !selectRoom) {
             alert("Please select an accommodation.");
-            console.log("accommodation",selectRoom);
+            console.log("accommodation", selectRoom);
             return;
         }
         // Case: Accommodation is selected but one date is missing → invalid
@@ -73,7 +73,7 @@ export default function Rooms() {
             return;
         }
         // ✅ Valid in both cases: only accommodation OR all three fields
-        await RoomList(selectedAccommodationId, P_StartDate, P_EndDate,selectRoom);
+        await RoomList(selectedAccommodationId, P_StartDate, P_EndDate, selectRoom);
     }
 
     useEffect(() => {
@@ -101,21 +101,52 @@ export default function Rooms() {
                                                 onChange={(e) => setSearchText(e.target.value)}
                                                 autoComplete="off"
                                             />
-
                                             {showDropdown && accommodationsearch.length > 0 && (
-                                                <ul className="list-group position-absolute w-100" style={{ zIndex: 999 }}>
+                                                <ul
+                                                    className="list-group position-absolute"
+                                                    style={{
+                                                        zIndex: 999,
+                                                        maxHeight: '200px',
+                                                        overflowY: 'auto',
+                                                        width: '300px', // fix width here
+                                                        boxSizing: 'content-box',
+                                                        margin: 0,
+                                                        padding: 0,
+                                                    }}
+                                                >
                                                     {accommodationsearch.map((item) => (
                                                         <li
                                                             key={item.accommodationId}
                                                             className="list-group-item list-group-item-action"
                                                             onClick={() => handleSelect(item)}
-                                                            style={{ cursor: 'pointer', width: '468px' }}
+                                                            style={{
+                                                                cursor: 'pointer',
+                                                                width: '100%', // ensure full width
+                                                                padding: '8px 12px', // adjust padding as needed
+                                                                boxSizing: 'border-box',
+                                                            }}
                                                         >
                                                             {item.accommodationIdName}
                                                         </li>
                                                     ))}
                                                 </ul>
                                             )}
+
+
+                                            {/* {showDropdown && accommodationsearch.length > 0 && (
+                                                <ul className="list-group position-absolute w-100" style={{ zIndex: 999 }}>
+                                                    {accommodationsearch.map((item) => (
+                                                        <li
+                                                            key={item.accommodationId}
+                                                            className="list-group-item list-group-item-action"
+                                                            onClick={() => handleSelect(item)}
+                                                            style={{ cursor: 'pointer', width: '300px' }}
+                                                        >
+                                                            {item.accommodationIdName}
+                                                        </li>
+                                                    ))}
+                                                </ul>
+                                            )} */}
                                         </div>
 
                                         <div className="col-3">
