@@ -12,6 +12,9 @@ import Reports from './Componenet/Reports';
 import AccommodationList from './Componenet/AccommodationList';
 import Rooms from './Componenet/Rooms';
 import RatePlan from './Componenet/RatePlan';
+import Roominventorylog from './Componenet/Roominventorylog';
+import Rateinventory from './Componenet/Rateinventory';
+
 
 function App() {
   const [token, setToken] = useState(sessionStorage.getItem("token") || null);
@@ -37,6 +40,9 @@ function App() {
                                 <Route exact path="/accommodation" element={<AccommodationList />} />
                                 <Route exact path="/rooms" element={<Rooms />} />
                                 <Route exact path="/rateplan" element={<RatePlan />} />
+                                <Route exact path="/roominventorylog" element={<Roominventorylog/>} />
+                                <Route exact path="/rateinventory" element={<Rateinventory/>} />
+
 
                               </Routes>} 
                         {/* <Footer/>                     */}

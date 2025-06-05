@@ -10,7 +10,7 @@ import "datatables.net";
 export default function AccommodationList() {
 
     const context = useContext(ProductContext)
-    const { GetAccommodation, accommodation, Reportingdata, reporting, setreporting, AccommodationList, accommodationsearch, getaccommodationsearch, GetAccommodationList } = context
+    const { AccommodationList, accommodationsearch, getaccommodationsearch, GetAccommodationList} = context
     const [selectedAccommodationId, setSelectedAccommodationId] = useState('');
     const [P_StartDate, setStartDate] = useState('');
     const [P_EndDate, setEndDate] = useState('');
@@ -59,6 +59,7 @@ export default function AccommodationList() {
         setSelectedAccommodationId(item.accommodationId);
         setShowDropdown(false);
     };
+
     const Formsubmit = async (e) => {
         e.preventDefault();
 
@@ -77,10 +78,12 @@ export default function AccommodationList() {
         // ✅ Valid in both cases: only accommodation OR all three fields
         await GetAccommodationList(selectedAccommodationId, P_StartDate, P_EndDate);
     }
-    useEffect(() => {
 
+    useEffect(() => {
         GetAccommodationList();
     }, [])
+
+    const tableRef = useRef();
 
     return (
         <>
@@ -180,7 +183,7 @@ export default function AccommodationList() {
                         </div>
                         <div className="card-body">
                             <div className="table-responsive">
-                                <table className="table table-bordered" id="dataTable" width="100%">
+                                <table className="table table-bordered" id="dataTable" ref={tableRef} width="100%">
                                     <thead>
                                         <tr style={{ fontSize: "10px" }}>
                                             <th>AccommodationId</th>
