@@ -1,16 +1,16 @@
-import React, { useContext, useEffect, useState, useRef } from 'react'
+import React, { useContext, useEffect, useState, tableRef,useRef } from 'react'
 import ProductContext from '../Context/ProductContext';
 import $ from 'jquery';
 import 'daterangepicker';
 import 'daterangepicker/daterangepicker.css';
 import "datatables.net";
 //  import 'datatables.net-bs4'; // DataTables with Bootstrap 4 styling
-//  import 'datatables.net-bs4/css/dataTables.bootstrap4.min.css';
+import 'datatables.net-bs4/css/dataTables.bootstrap4.min.css';
 
 export default function AccommodationList() {
 
     const context = useContext(ProductContext)
-    const { AccommodationList, accommodationsearch, getaccommodationsearch, GetAccommodationList} = context
+    const { AccommodationList, accommodationsearch, getaccommodationsearch, GetAccommodationList } = context
     const [selectedAccommodationId, setSelectedAccommodationId] = useState('');
     const [P_StartDate, setStartDate] = useState('');
     const [P_EndDate, setEndDate] = useState('');
@@ -18,6 +18,7 @@ export default function AccommodationList() {
     const [isDropdownEnabled, setIsDropdownEnabled] = useState(false);
     const [selectedOption, setSelectedOption] = useState(null);
     const [showDropdown, setShowDropdown] = useState(false);
+    const tableRef = useRef(null); // ✅ Define ref
 
     const handleChangess = (e) => {
         setStartDate(e.target.value);
@@ -83,8 +84,7 @@ export default function AccommodationList() {
         GetAccommodationList();
     }, [])
 
-    const tableRef = useRef();
-
+    
     return (
         <>
             <div id='content'>
@@ -176,14 +176,13 @@ export default function AccommodationList() {
 
                     </div>
                     <br />
-
                     <div className="card shadow mb-4">
                         <div className="card-header py-3">
                             <h6 className="m-0 font-weight-bold text-primary">Accommodation List</h6>
                         </div>
                         <div className="card-body">
                             <div className="table-responsive">
-                                <table className="table table-bordered" id="dataTable" ref={tableRef} width="100%">
+                                <table ref={tableRef} className="table table-bordered" id="dataTable" width="100%">                               
                                     <thead>
                                         <tr style={{ fontSize: "10px" }}>
                                             <th>AccommodationId</th>
@@ -202,12 +201,11 @@ export default function AccommodationList() {
                                     </thead>
 
                                     <tbody>
-
                                         {getaccommodationsearch && getaccommodationsearch.length > 0 ? (
                                             getaccommodationsearch.map((item, index) => (
                                                 <tr key={index}>
                                                     <td>{item.accommodationId}</td>
-                                                    <td style={{ whiteSpace: "nowrap" }}>{item.logDate}</td>
+                                                    <td style={{whiteSpace: "nowrap" }}>{item.logDate}</td>
                                                     <td>{item.o_UserName}</td>
                                                     <td>{item.n_UserName}</td>
                                                     <td>{item.o_accommodationName}</td>
@@ -222,14 +220,12 @@ export default function AccommodationList() {
                                             ))
 
                                         ) : (
-
-                                            <tr>
+                                            <tr>                                                                                                
                                                 <td colSpan="12" style={{ textAlign: "left" }}>
                                                     No data available
                                                 </td>
                                             </tr>
-                                        )}
-
+                                        )} 
                                     </tbody>
                                 </table>
                             </div>

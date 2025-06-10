@@ -300,7 +300,7 @@ export default function RatePlan() {
                                                     <td>{item.new_DefaultRates}</td>
                                                     <td>{item.pre_OnRequest}</td>
                                                     <td>{item.new_OnRequest}</td>
-                                                    <td>{item.createDate}</td>
+                                                    <td style={{ whiteSpace: "nowrap" }}>{item.createDate}</td>
                                                     <td>{item.pre_LastModified}</td>
                                                     <td>{item.new_LastModified}</td>
                                                     <td>{item.pre_StatusName}</td>
